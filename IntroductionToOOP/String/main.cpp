@@ -9,73 +9,84 @@ class String
 	int	size;	//Размер строки в Байтах
 	char* str;	//Адрес строки в динамической памяти
 public:
-	const char* get_str()const
-	{
-		return str;
-	}
-	char* get_str()
-	{
-		return str;
-	}
-	int get_size()const
-	{
-		return size;
-	}
+	const char* get_str()const;
+	char* get_str();
+	int get_size()const;
 
 	//			Constructors:
 
-	explicit String(int size = 80) : size(size), str(new char[size] {})
-	{
-		//this->size = size;
-		//this->str = new char[size] {};
-		cout << "DefaultConstructor:\t" << this << endl;
-	}
-	String(const char str[]) : String(strlen(str) + 1)
-	{
-		//this->size = strlen(str) + 1;
-		//this->str = new char[size] {};
-		for (int i = 0; str[i]; i++)this->str[i] = str[i];
-		cout << "Constructor:\t\t" << this << endl;
-	}
-	String(const String& other) : String(other.str)
-	{
-		//Deep copy
-		//this->size = other.size;
-		//this->str = new char[size] {};
-		//for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		cout << "CopyConstructor:\t\t" << this << endl;
-	}
-	//String(String&&) = delete;
-	~String()
-	{
-		delete[] this->str;
-		cout << "Destructor:\t\t" << this << endl;
-	}
+	explicit String(int size = 80);
+	String(const char str[]);
+	String(const String& other);
+	~String();
 
 	//				Operators:
 
-	String& operator=(const String& other)
-	{
-		if (this == &other)return *this;
-		delete[] str;
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)
-			this->str[i] = other.str[i];
-		cout << "CopyAssignment:\t\t" << this << endl;
-		return *this;
-	}
+	String& operator=(const String& other);
 
 	//				Methods:
 
-	void print()const
-	{
-		cout << "Obj:\t" << this << tab;
-		cout << "Size:\t" << size << tab;
-		cout << "AddrStr:\t" << &str << tab;
-		cout << "Str:\t" << str << endl;
-	}
+	void print()const;
 };
+
+const char* String::get_str()const
+{
+	return str;
+}
+char* String::get_str()
+{
+	return str;
+}
+int String::get_size()const
+{
+	return size;
+}
+
+//			Constructors:
+
+String::String(int size) : size(size), str(new char[size] {})
+{
+	cout << "DefaultConstructor:\t" << this << endl;
+}
+String::String(const char str[]) : String(strlen(str) + 1)
+{
+	for (int i = 0; str[i]; i++)this->str[i] = str[i];
+	cout << "Constructor:\t\t" << this << endl;
+}
+String::String(const String& other) : String(other.str)
+{
+	cout << "CopyConstructor:\t\t" << this << endl;
+}
+String::~String()
+{
+	delete[] this->str;
+	cout << "Destructor:\t\t" << this << endl;
+}
+
+//				Operators:
+
+String& String::operator=(const String& other)
+{
+	if (this == &other)return *this;
+	delete[] str;
+	this->size = other.size;
+	this->str = new char[size] {};
+	for (int i = 0; i < size; i++)
+		this->str[i] = other.str[i];
+	cout << "CopyAssignment:\t\t" << this << endl;
+	return *this;
+}
+
+//				Methods:
+
+void String::print()const
+{
+	cout << "Obj:\t" << this << tab;
+	cout << "Size:\t" << size << tab;
+	cout << "AddrStr:\t" << &str << tab;
+	cout << "Str:\t" << str << endl;
+}
+
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
 	return os << obj.get_str();
